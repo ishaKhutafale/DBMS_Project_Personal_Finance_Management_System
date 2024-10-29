@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Finance Tracker</h2>
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('income_management') }}">Income Management</a></li>
+            <li><a href="{{ url_for('expense_management') }}">Expense Management</a></li>
+            <li><a href="{{ url_for('reports') }}">Reports</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+            <h1 style="color: white; text-align: center;">Expense Management</h1>
+        </header>
+        <section>
+            <h2>Add New Expense</h2>
+            <form method="POST"> <!-- Added method="POST" -->
+                <label for="expense-category">Expense Category:</label>
+                <input type="text" id="expense-category" name="expense-category" placeholder="e.g., Groceries, Utilities" required><br><br>
+
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" name="expense-amount" placeholder="Enter amount" required><br><br>
+
+                <label for="expense-date">Date:</label>
+                <input type="date" id="expense-date" name="expense-date" required><br><br>
+
+                <button type="submit">Add Expense</button>
+            </form>
+
+            <h2>Expense History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in expense_records %}
+                    <tr>
+                        <td>{{ record.date }}</td>
+                        <td>{{ record.category }}</td>
+                        <td>${{ record.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

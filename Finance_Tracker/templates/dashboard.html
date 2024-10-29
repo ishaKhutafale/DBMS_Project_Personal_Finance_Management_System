@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Finance Tracker</h2>
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('income_management') }}">Income Management</a></li>
+            <li><a href="{{ url_for('expense_management') }}">Expense Management</a></li>
+            <li><a href="{{ url_for('reports') }}">Reports</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+            <h1 style="color: white; text-align: center;">Welcome to Personal Finance Dashboard</h1>
+        </header>
+        <section class="summary">
+            <div class="card">Overall Budget: <span>₹{{ overall_budget }}</span></div>
+            <div class="card">Today's Income: <span>₹{{ total_income }}</span></div>
+            <div class="card">Today's Expenses: <span>₹{{ total_expense }}</span></div>
+        </section>
+        <section class="budget-categories">
+            <h2>Budget by Categories</h2>
+            <h3>Income by Category</h3>
+            {% for category in income_by_category %}
+            <div class="category-card">{{ category.category }}: <span>₹{{ category.total }}</span></div>
+            {% endfor %}
+            <h3>Expenses by Category</h3>
+            {% for category in expense_by_category %}
+            <div class="category-card">{{ category.category }}: <span>₹{{ category.total }}</span></div>
+            {% endfor %}
+        </section>
+    </div>
+</body>
+</html>
